@@ -41,9 +41,12 @@ at `http://100.84.112.24:8888` and pass the key. See `hexstrike-ai-mcp.json`.
 | `HEXSTRIKE_RATE_LIMIT` | `true` | throttle |
 
 ## Image notes
-Lean image (`python:3.11-slim` + nmap/nikto/gobuster/dirb/hydra/sqlmap). Not a full
-150-tool Kali — tools beyond that subset report "not available" until added to the
-Dockerfile. Extend the `apt-get install` list to add more.
+P920 builds from **`Dockerfile.p920` (Kali rolling base)** — the upstream/netcuter
+`Dockerfile` targets `python:3.11-slim`, where `nikto`/`gobuster` and most of the
+150 tools are not in Debian repos and the build fails. Kali ships them.
+Current tool set: nmap, nikto, gobuster, dirb, hydra, sqlmap, whatweb, wafw00f.
+Tools beyond that report "not available" until added to `Dockerfile.p920`'s
+`apt-get install` list (Kali has the rest: ffuf, feroxbuster, nuclei, wpscan, …).
 
 ## Promotion flow
 laptop = dev · **P920 = test/acceptatie (here)** · P620 = productie. Do NOT promote
