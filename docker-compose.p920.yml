@@ -1,0 +1,28 @@
+# P920 deploy override for HexStrike AI (MarQed / zeeneddie fork)
+#
+# Usage on P920 (marqed003, 100.84.112.24):
+#   docker compose -f docker-compose.yml -f docker-compose.p920.yml up -d --build
+#
+# Security posture for P920 (test/acceptatie, NOT production):
+#  - Published port bound to the Tailscale IP ONLY (100.84.112.24) -> reachable
+#    over the tailnet, never on the public/LAN interface.
+#  - HEXSTRIKE_HOST=0.0.0.0 so Flask listens inside the container (the base image
+#    defaults to 127.0.0.1, which would make the port mapping a dead end).
+#  - API key required + guardrails fail-closed + command validation + rate limit.
+#  - Authorized targets only. This is offensive tooling.
+services:
+  hexstrike:
+    container_name: hexstrike-ai
+    environment:
+      - HEXSTRIKE_HOST=0.0.0.0
+      - HEXSTRIKE_PORT=8888
+      - HEXSTRIKE_REQUIRE_API_KEY=true
+      - HEXSTRIKE_API_KEY=${HEXSTRIKE_API_KEY:?set HEXSTRIKE_API_KEY in .env}
+      - HEXSTRIKE_GUARDRAILS=true
+      - HEXSTRIKE_GUARDRAIL_FAIL_CLOSED=true
+      - HEXSTRIKE_VALIDATE_COMMANDS=true
+      - HEXSTRIKE_RATE_LIMIT=true
+      - HEXSTRIKE_ML_ENABLED=true
+    ports:
+      - "100.84.112.24:8888:8888"
+    restart: unless-stopped

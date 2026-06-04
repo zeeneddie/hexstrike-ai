@@ -33,3 +33,6 @@ report_*.html
 secrets.txt
 targets.txt
 credentials*
+
+# MarQed P920 secrets
+.env
