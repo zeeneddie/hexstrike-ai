@@ -26,6 +26,8 @@ services:
       - HEXSTRIKE_VALIDATE_COMMANDS=true
       - HEXSTRIKE_RATE_LIMIT=true
       - HEXSTRIKE_ML_ENABLED=true
+    # Host port 18888 (distinctive) -> container 8888. 8888 is a common port
+    # (Jupyter etc.) -> avoid collisions on the shared P920 host.
     ports:
-      - "100.84.112.24:8888:8888"
+      - "100.84.112.24:18888:8888"
     restart: unless-stopped

@@ -9,7 +9,7 @@ Runs as an MCP server that lets AI agents (Claude Code) drive 150+ security tool
 ## Where it runs
 - Host: **P920 / marqed003** (Tailscale `100.84.112.24`)
 - Port: **8888**, published **only on the Tailscale interface** (not public/LAN).
-- Reachable from the tailnet: `http://100.84.112.24:8888/`
+- Reachable from the tailnet: `http://100.84.112.24:18888/`
 
 ## First deploy
 ```bash
@@ -24,12 +24,12 @@ docker compose -f docker-compose.yml -f docker-compose.p920.yml up -d --build
 
 ## Health check
 ```bash
-curl -fsS http://100.84.112.24:8888/health    # /health bypasses auth
+curl -fsS http://100.84.112.24:18888/health    # /health bypasses auth
 ```
 
 ## Connect Claude Code (MCP)
 The server requires `HEXSTRIKE_API_KEY`. Point the MCP client (`hexstrike_mcp.py`)
-at `http://100.84.112.24:8888` and pass the key. See `hexstrike-ai-mcp.json`.
+at `http://100.84.112.24:18888` and pass the key. See `hexstrike-ai-mcp.json`.
 
 ## Security knobs (set in docker-compose.p920.yml)
 | env | value | why |
