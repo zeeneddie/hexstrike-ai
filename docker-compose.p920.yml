@@ -28,6 +28,9 @@ services:
       - HEXSTRIKE_ML_ENABLED=true
     # Host port 18888 (distinctive) -> container 8888. 8888 is a common port
     # (Jupyter etc.) -> avoid collisions on the shared P920 host.
-    ports:
+    # !override REPLACES the base compose's "8888:8888" instead of merging (append)
+    # with it — without this the container also binds 0.0.0.0:8888 (LAN/public),
+    # defeating the Tailscale-only posture.
+    ports: !override
       - "100.84.112.24:18888:8888"
     restart: unless-stopped

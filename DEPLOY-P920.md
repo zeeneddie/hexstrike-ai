@@ -8,7 +8,8 @@ Runs as an MCP server that lets AI agents (Claude Code) drive 150+ security tool
 
 ## Where it runs
 - Host: **P920 / marqed003** (Tailscale `100.84.112.24`)
-- Port: **8888**, published **only on the Tailscale interface** (not public/LAN).
+- Host port **18888** -> container **8888**, published **only on the Tailscale
+  interface** (not public/LAN; `ports: !override` replaces the base 8888 mapping).
 - Reachable from the tailnet: `http://100.84.112.24:18888/`
 
 ## First deploy
